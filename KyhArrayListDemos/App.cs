@@ -4,10 +4,89 @@ public class App
 {
     public void Run()
     {
-        int age = 12;
-        age = age + 12;
+        int antalPriser = Convert.ToInt32(Console.ReadLine());
+        int[] allaPriser = new int[antalPriser];
+        Console.Write("Ange första priset:");
+        int pris = Convert.ToInt32(Console.ReadLine());
+        allaPriser[0] = pris;
 
-        while (age > 15)
+        allaPriser[0] = allaPriser[0] + 12;
+
+        var i323231 = 2222;
+
+        string[] coolPlayers ={ "Börje Salming", "Foppa", "Mats Sundin" };
+
+        var ages= new int[] { 12,22,456 };
+
+
+        int iiiiiii = 111;
+        var allaBarn = new List<string>();
+        allaBarn.Add("Fanny"); // INDEX 0 
+        allaBarn.Add("Josefine"); // INDEX 1
+        allaBarn.Add("Hunden"); // INDEX 2
+        allaBarn.Add("Oliver"); // INDEX 3
+        allaBarn.RemoveAt(2);
+        string namn11 = allaBarn[2];
+        allaBarn[2] = "Ollie";
+        namn11 = allaBarn[2];
+
+        foreach (string namn in allaBarn)
+        {
+            if (namn[0] == 'O')
+            {
+                Console.WriteLine("Grattis");
+            }
+            Console.WriteLine($"Brev till {namn}");
+        }
+
+        
+
+        for (int i = 0; i < allaBarn.Count; i++)
+        {
+            if (allaBarn[i].StartsWith("O"))
+            {
+                Console.WriteLine("Grattis");
+            }
+            string namn = allaBarn[i];
+            if (namn[0] == 'O')
+            //if (allaBarn[i][0] == 'O')
+            {
+                Console.WriteLine("Grattis");
+            }
+            Console.WriteLine($"Brev till {allaBarn[i]}");
+        }
+        
+
+        var playersInNYRangers = new List<string>();
+
+        var allYears = new List<int>();
+        allYears.Add(1212);
+        allYears.Add(1213);
+
+        foreach (int year in allYears)
+        {
+            Console.WriteLine($"{year}");
+        }
+
+
+
+
+
+
+
+
+
+
+        int age = 12;
+        age =  13;
+
+
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine($"Talet är {i}");
+        }
+
+        while (age < 15)
         {
             Console.WriteLine("Hello");
             age = age + 1;
