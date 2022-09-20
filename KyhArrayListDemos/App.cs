@@ -4,9 +4,35 @@ public class App
 {
     public void Run()
     {
+        int age = 12;
+        age = age + 12;
+
+        while (age > 15)
+        {
+            Console.WriteLine("Hello");
+            age = age + 1;
+        }
+        Console.WriteLine("sasdasda");
+
+        var allaTal = new List<int>();
+        while (true)
+        {
+            Console.Write("mata in ett tal:");
+            string inmatningen = Console.ReadLine();
+            if (inmatningen.ToLower() == "n")
+                break;
+            int talet = Convert.ToInt32(inmatningen);
+            allaTal.Add(talet);
+            //om n eller N break
+
+            // annars stoppa in i listan
+        }
+
+
+
         //List<string> allLegendaryPlayers = new List<string>();
         var allLegendaryPlayers = new List<string>();
-
+        
         while (true)
         {
             Console.WriteLine("1. Lista alla spelare");
