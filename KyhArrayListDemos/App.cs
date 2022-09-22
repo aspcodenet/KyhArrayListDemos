@@ -1,4 +1,5 @@
-﻿using KyhArrayListDemos.Model;
+﻿using System.Runtime.InteropServices;
+using KyhArrayListDemos.Model;
 
 namespace KyhArrayListDemos;
 
@@ -60,8 +61,76 @@ public class App
         return player;
     }
 
+    public void FileDemos()
+    {
+        //var allLines = File.ReadAllLines("SwedishCountiies.txt");
+        //foreach (var line in allLines)
+        //    Console.WriteLine(line);
+
+        //using (var file = File.CreateText("spelare111.txt"))
+        //{
+        //    file.WriteLine("Foppa");
+        //    file.WriteLine("Mats");
+        //    file.WriteLine("Stefan");
+        //}
+
+
+        //var lines = File.ReadLines("SwedishCountiies.txt");
+        //foreach (var line in lines)
+        //    Console.WriteLine(line);
+    }
+
+    public void SaveAllPlayers(List<HockeyPlayer> listan)
+    {
+        using (var file = File.CreateText("players.txt"))
+        {
+            foreach (var player in listan)
+            {
+                file.WriteLine(player.Namn);
+                file.WriteLine(player.Age);
+                file.WriteLine(player.JerseyNumber);
+            }
+        }
+
+    }
+
+    public List<HockeyPlayer> GetFromFile()
+    {
+        var listan = new List<HockeyPlayer>();
+        if (!File.Exists("players.txt")) return listan;
+
+        var allLines = File.ReadAllLines("players.txt");
+
+        int row = 0;
+        HockeyPlayer currentPlayer = null;
+        foreach (var line in allLines)
+        {
+            if (row == 0)
+            {
+                currentPlayer = new HockeyPlayer();
+                listan.Add(currentPlayer);
+                currentPlayer.Namn = line;
+            }
+            else if (row == 1)
+            {
+                currentPlayer.Age = Convert.ToInt32(line);
+            }
+            else if (row == 2)
+            {
+                currentPlayer.JerseyNumber = Convert.ToInt32(line);
+            }
+
+            row++;
+            if (row == 3)
+                row = 0;
+        }
+
+        return listan;
+    }
+
     public void Run()
     {
+        //FileDemos();
         //var player = new HockeyPlayer();
         //player.Namn = "Foppa";
         //player.Age = 49;
@@ -72,14 +141,17 @@ public class App
         //player2.Age = 51;
         //player2.JerseyNumber = 13;
 
-
-
-        var allLegendaryPlayers = new List<HockeyPlayer>();
+        var allLegendaryPlayers = GetFromFile();
 
         while (true)
         {
             ShowMenu();
             var sel = GetIntInput("Ange val:", 1, 5);
+            if (sel == 5)
+            {
+                SaveAllPlayers(allLegendaryPlayers);
+                return;
+            }
             if (sel == 1)
                 ListAllPlayers(allLegendaryPlayers);
             if (sel == 2)
