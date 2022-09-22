@@ -20,11 +20,18 @@ public class App
         while (true)
         {
             Console.Write(prompt);
-            int sel = Convert.ToInt32(Console.ReadLine());
-            if (sel < minValue || sel > maxValue)
-                Console.WriteLine($"Mata in ett tal mellan {minValue} och {maxValue} tack");
-            else
-                return sel;
+            try
+            {
+                int sel = Convert.ToInt32(Console.ReadLine());
+                if (sel < minValue || sel > maxValue)
+                    Console.WriteLine($"Mata in ett tal mellan {minValue} och {maxValue} tack");
+                else
+                    return sel;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Mata in siffror tack");
+            }
         }
     }
 
