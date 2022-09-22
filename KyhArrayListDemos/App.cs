@@ -2,34 +2,69 @@
 
 public class App
 {
+    //public int CalcilateSalary()
+    //{
+
+    //}
+    public void ShowMenu()
+    {
+        Console.WriteLine("1. Lista alla spelare");
+        Console.WriteLine("2. Skapa ny spelare");
+        Console.WriteLine("3. Ta bort spelare");
+        Console.WriteLine("4. Ändra spelare");
+        Console.WriteLine("5. Exit");
+    }
+
+    public int GetIntInput(string prompt, int minValue, int maxValue)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+            int sel = Convert.ToInt32(Console.ReadLine());
+            if (sel < minValue || sel > maxValue)
+                Console.WriteLine($"Mata in ett tal mellan {minValue} och {maxValue} tack");
+            else
+                return sel;
+        }
+    }
+
+    public void ListAllPlayers(List<string> list)
+    {
+        foreach (string namn in list)
+        {
+            Console.WriteLine(namn);
+        }
+    }
+
+    public string GetNewPlayer()
+    {
+        while (true)
+        {
+            Console.Write("Ange namn på nya spelaren:");
+            string player = Console.ReadLine();
+            if (player.Length < 2 || player.Length > 40)
+                Console.WriteLine("Skriv in mellan 2 och 40 tecken");
+            else return player;
+        }
+    }
+
     public void Run()
     {
         var allLegendaryPlayers = new List<string>();
 
         while (true)
         {
-            Console.WriteLine("1. Lista alla spelare");
-            Console.WriteLine("2. Skapa ny spelare");
-            Console.WriteLine("3. Ta bort spelare");
-            Console.WriteLine("4. Ändra spelare");
-            Console.WriteLine("5. Exit");
-            Console.Write("Ange val:");
-            var sel = Console.ReadLine();
-            if (sel == "1")
+            ShowMenu();
+            var sel = GetIntInput("Ange val:", 1, 5);
+            if (sel == 1)
+                ListAllPlayers(allLegendaryPlayers);
+            if (sel == 2)
             {
-                foreach (string namn in allLegendaryPlayers)
-                {
-                    Console.WriteLine(namn);
-                }
-            }
-            if (sel == "2")
-            {
-                Console.Write("Ange namn på nya spelaren:");
-                var namn = Console.ReadLine();
+                var namn = GetNewPlayer();
                 allLegendaryPlayers.Add(namn);
             }
 
-            if (sel == "3")
+            if (sel == 3)
             {
                 var index = 0;
                 foreach (var namn in allLegendaryPlayers)
@@ -37,12 +72,15 @@ public class App
                     index++;
                     Console.WriteLine($"{index} {namn}");
                 }
-                Console.Write("Skriv in nummer på spelaren du vill ta bort:");
-                var nummer = Convert.ToInt32(Console.ReadLine());
+
+                var nummer = GetIntInput("Skriv in nummer på spelaren du vill ta bort:",
+                    1, allLegendaryPlayers.Count);
+                //Console.Write("Skriv in nummer på spelaren du vill ta bort:");
+                //var nummer = Convert.ToInt32(Console.ReadLine());
                 allLegendaryPlayers.RemoveAt(nummer - 1);
             }
 
-            if (sel == "4")
+            if (sel == 4)
             {
                 var index = 0;
                 foreach (var namn in allLegendaryPlayers)
@@ -50,8 +88,11 @@ public class App
                     index++;
                     Console.WriteLine($"{index} {namn}");
                 }
-                Console.Write("Skriv in nummer på spelaren du vill ändra:");
-                var nummer = Convert.ToInt32(Console.ReadLine());
+
+                var nummer = GetIntInput("Skriv in nummer på spelaren du vill ändra:", 1, allLegendaryPlayers.Count);
+
+                //Console.Write("Skriv in nummer på spelaren du vill ändra:");
+                //var nummer = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Ange namn:");
                 var nyttNamn = Console.ReadLine();
                 allLegendaryPlayers[nummer - 1] = nyttNamn;
@@ -59,7 +100,9 @@ public class App
             }
 
 
+
         }
+
 
         //int antalPriser = Convert.ToInt32(Console.ReadLine());
         //int[] allaPriser = new int[antalPriser];
