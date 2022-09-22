@@ -1,4 +1,6 @@
-﻿namespace KyhArrayListDemos;
+﻿using KyhArrayListDemos.Model;
+
+namespace KyhArrayListDemos;
 
 public class App
 {
@@ -35,29 +37,44 @@ public class App
         }
     }
 
-    public void ListAllPlayers(List<string> list)
+    public void ListAllPlayers(List<HockeyPlayer> list)
     {
-        foreach (string namn in list)
+        foreach (var hockeyPlayer in list)
         {
-            Console.WriteLine(namn);
+            Console.WriteLine($"{hockeyPlayer.JerseyNumber} {hockeyPlayer.Namn}");
         }
     }
 
-    public string GetNewPlayer()
+    public HockeyPlayer GetNewPlayer()
     {
-        while (true)
-        {
-            Console.Write("Ange namn på nya spelaren:");
-            string player = Console.ReadLine();
-            if (player.Length < 2 || player.Length > 40)
-                Console.WriteLine("Skriv in mellan 2 och 40 tecken");
-            else return player;
-        }
+        Console.Write("Ange namn på nya spelaren:");
+        string namn = Console.ReadLine();
+        Console.Write("Ange age :");
+        int age= Convert.ToInt32(Console.ReadLine());
+        Console.Write("Ange jersey :");
+        int jerseye = Convert.ToInt32(Console.ReadLine());
+        var player = new HockeyPlayer();
+        player.JerseyNumber = jerseye;
+        player.Namn = namn;
+        player.Age = age;
+        return player;
     }
 
     public void Run()
     {
-        var allLegendaryPlayers = new List<string>();
+        //var player = new HockeyPlayer();
+        //player.Namn = "Foppa";
+        //player.Age = 49;
+        //player.JerseyNumber = 21;
+
+        //var player2 = new HockeyPlayer();
+        //player2.Namn = "Mats Sundin";
+        //player2.Age = 51;
+        //player2.JerseyNumber = 13;
+
+
+
+        var allLegendaryPlayers = new List<HockeyPlayer>();
 
         while (true)
         {
@@ -67,8 +84,8 @@ public class App
                 ListAllPlayers(allLegendaryPlayers);
             if (sel == 2)
             {
-                var namn = GetNewPlayer();
-                allLegendaryPlayers.Add(namn);
+                var player = GetNewPlayer();
+                allLegendaryPlayers.Add(player);
             }
 
             if (sel == 3)
@@ -89,20 +106,20 @@ public class App
 
             if (sel == 4)
             {
-                var index = 0;
-                foreach (var namn in allLegendaryPlayers)
-                {
-                    index++;
-                    Console.WriteLine($"{index} {namn}");
-                }
+                //var index = 0;
+                //foreach (var namn in allLegendaryPlayers)
+                //{
+                //    index++;
+                //    Console.WriteLine($"{index} {namn}");
+                //}
 
-                var nummer = GetIntInput("Skriv in nummer på spelaren du vill ändra:", 1, allLegendaryPlayers.Count);
+                //var nummer = GetIntInput("Skriv in nummer på spelaren du vill ändra:", 1, allLegendaryPlayers.Count);
 
-                //Console.Write("Skriv in nummer på spelaren du vill ändra:");
-                //var nummer = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Ange namn:");
-                var nyttNamn = Console.ReadLine();
-                allLegendaryPlayers[nummer - 1] = nyttNamn;
+                ////Console.Write("Skriv in nummer på spelaren du vill ändra:");
+                ////var nummer = Convert.ToInt32(Console.ReadLine());
+                //Console.Write("Ange namn:");
+                //var nyttNamn = Console.ReadLine();
+                //allLegendaryPlayers[nummer - 1] = nyttNamn;
 
             }
 
