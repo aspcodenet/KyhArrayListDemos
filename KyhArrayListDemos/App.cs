@@ -1,5 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using KyhArrayListDemos.Model;
+﻿using KyhArrayListDemos.Model;
+using Newtonsoft.Json;
 
 namespace KyhArrayListDemos;
 
@@ -63,67 +63,38 @@ public class App
 
     public void FileDemos()
     {
-        //var allLines = File.ReadAllLines("SwedishCountiies.txt");
-        //foreach (var line in allLines)
-        //    Console.WriteLine(line);
+        var allLines = File.ReadAllLines("SwedishCountiies.txt");
+        foreach (var line in allLines)
+            Console.WriteLine(line);
 
-        //using (var file = File.CreateText("spelare111.txt"))
-        //{
-        //    file.WriteLine("Foppa");
-        //    file.WriteLine("Mats");
-        //    file.WriteLine("Stefan");
-        //}
+        using (var file = File.CreateText("spelare111.txt"))
+        {
+            file.WriteLine("Foppa");
+            file.WriteLine("Mats");
+            file.WriteLine("Stefan");
+        }
 
 
-        //var lines = File.ReadLines("SwedishCountiies.txt");
-        //foreach (var line in lines)
-        //    Console.WriteLine(line);
+        var lines = File.ReadLines("SwedishCountiies.txt");
+        foreach (var line in lines)
+            Console.WriteLine(line);
     }
 
     public void SaveAllPlayers(List<HockeyPlayer> listan)
     {
-        using (var file = File.CreateText("players.txt"))
-        {
-            foreach (var player in listan)
-            {
-                file.WriteLine(player.Namn);
-                file.WriteLine(player.Age);
-                file.WriteLine(player.JerseyNumber);
-            }
-        }
+        var text = JsonConvert.SerializeObject(listan);
+        using (var file = File.CreateText("playersjson.txt"))
+            file.Write(text);
 
     }
 
     public List<HockeyPlayer> GetFromFile()
     {
         var listan = new List<HockeyPlayer>();
-        if (!File.Exists("players.txt")) return listan;
+        if (!File.Exists("playersjson.txt")) return listan;
 
-        var allLines = File.ReadAllLines("players.txt");
-
-        int row = 0;
-        HockeyPlayer currentPlayer = null;
-        foreach (var line in allLines)
-        {
-            if (row == 0)
-            {
-                currentPlayer = new HockeyPlayer();
-                listan.Add(currentPlayer);
-                currentPlayer.Namn = line;
-            }
-            else if (row == 1)
-            {
-                currentPlayer.Age = Convert.ToInt32(line);
-            }
-            else if (row == 2)
-            {
-                currentPlayer.JerseyNumber = Convert.ToInt32(line);
-            }
-
-            row++;
-            if (row == 3)
-                row = 0;
-        }
+        var text = File.ReadAllText("playersjson.txt");
+        listan = JsonConvert.DeserializeObject<List<HockeyPlayer>>(text);
 
         return listan;
     }
