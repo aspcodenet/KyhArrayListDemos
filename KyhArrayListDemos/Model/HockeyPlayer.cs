@@ -12,5 +12,7 @@ namespace KyhArrayListDemos.Model
         public int Age { get; set; }
         public int JerseyNumber { get; set; }
         public string City { get; set; }
+
+        public string Teamname { get; set; }
     }
 }
