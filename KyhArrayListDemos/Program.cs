@@ -1,5 +1,6 @@
 ﻿
 using KyhArrayListDemos;
+using KyhArrayListDemos.MoneyLaundry;
 
-var app = new App();
+var app = new MoneyLaundryJob();
 app.Run();
